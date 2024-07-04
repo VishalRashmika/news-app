@@ -1,4 +1,5 @@
 export const Feed = ({ pageNumber, articles}) =>{
+    console.log(articles,pageNumber);
     return (<>Hello World</>)
 };
 
@@ -13,7 +14,7 @@ export const getServerSideProps = async pageContext =>{
             }
         }
     }
-}
+
 const apiResponse = await fetch(
     `https://newsapi.org/v2/top-headlines?country=us&pageSize=5&page=${pageNumber}`,
     {
@@ -23,4 +24,16 @@ const apiResponse = await fetch(
     },
 );
 
+const apiJson = await apiResponse.json();
+
+const {articles} = apiJson;
+
+return {
+    props: {
+        articles,
+        pageNumber: Number.parseInt(pageNumber)
+    }
+}
+
+};
 export default Feed;
