@@ -1,5 +1,6 @@
 import styles from '../../styles/Feed.module.css'
 import { useRouter } from 'next/router';
+import { Toolbar } from '@/components/toolbar';
 
 export const Feed = ({ pageNumber, articles}) =>{
     
@@ -7,6 +8,7 @@ export const Feed = ({ pageNumber, articles}) =>{
 
     return(
         <div className='page-container'>
+            <Toolbar />
             <div className={styles.main}>
             {articles.map((article,index) => (
                 <div key={index} className={styles.post}>
@@ -29,6 +31,16 @@ export const Feed = ({ pageNumber, articles}) =>{
                     </div>
 
                     <div>#{pageNumber}</div>
+
+                    <div
+                    onClick={() => {
+                        if (pageNumber < 5){
+                            router.push(`/feed/${pageNumber + 1}`).then(() => window.scrollTo(0,0));
+                        }
+                    }} 
+                    className={pageNumber === 5 ? styles.disabled : styles.active}>
+                        Next Page
+                    </div>
             </div>
         </div>
     );
