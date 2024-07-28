@@ -1,2 +1,2 @@
 # news-app
-a news app using next.js
+a US news app using next.js
